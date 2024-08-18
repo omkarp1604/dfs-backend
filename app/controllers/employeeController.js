@@ -7,7 +7,7 @@ export const create = async (req, res) => {
 
     const userExist = await Employee.findOne({ email });
     if (userExist) {
-      return res.status(400).json({ message: "User already exist" });
+      return res.status(400).json({ message: "Employee already exist" });
     }
     const savedEmployee = await employeeData.save();
     res.status(200).json(savedEmployee);
@@ -20,7 +20,7 @@ export const fetch = async (req, res) => {
   try {
     const employees = await Employee.find();
     if (employees.length === 0) {
-      return res.status(404).json({ message: "User Not Found." });
+      return res.status(404).json({ message: "Employee Not Found." });
     }
     res.status(200).json(employees);
   } catch (error) {
@@ -33,7 +33,7 @@ export const update = async (req, res) => {
     const id = req.params.id;
     const userExist = await Employee.findOne({ _id: id });
     if (!userExist) {
-      return res.status(404).json({ message: "user not found." });
+      return res.status(404).json({ message: "Employee not found in MongoDB." });
     }
     const updateEmployee = await Employee.findByIdAndUpdate(id, req.body, {
       new: true,
@@ -49,10 +49,10 @@ export const deleteEmployee = async (req, res) => {
     const id = req.params.id;
     const userExist = await Employee.findOne({ _id: id });
     if (!userExist) {
-      return res.status(404).json({ message: "user not found." });
+      return res.status(404).json({ message: "Employee not found in DB." });
     }
     await Employee.findByIdAndDelete(id);
-    res.status(201).json({ message: "user deleted successfully" });
+    res.status(201).json({ message: "Employee deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error." });
   }
