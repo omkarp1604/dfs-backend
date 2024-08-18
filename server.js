@@ -3,6 +3,7 @@ import configDotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import route from "./app/routes/userRoute.js";
+import employeeRoute from "./app/routes/EmployeeRoute.js";
 const app = express();
 
 app.use(bodyParser.json());
@@ -20,9 +21,10 @@ mongoose
   .then(() => {
     console.log("connected");
     app.listen(PORT, () => {
-      console.log(`server vis runngin on port ${PORT}`);
+      console.log(`server is running on port ${PORT}`);
     });
   })
   .catch((error) => console.log(error));
 
 app.use("/api/user", route);
+app.use("/api/employee", employeeRoute);
