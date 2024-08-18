@@ -33,7 +33,7 @@ export const update = async (req, res) => {
     const id = req.params.id;
     const userExist = await Employee.findOne({ _id: id });
     if (!userExist) {
-      return res.status(404).json({ message: "Employee not found." });
+      return res.status(404).json({ message: "Employee not found in MongoDB." });
     }
     const updateEmployee = await Employee.findByIdAndUpdate(id, req.body, {
       new: true,
